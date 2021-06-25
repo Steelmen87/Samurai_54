@@ -1,0 +1,29 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems {
+    padding: 10px;
+    color: #ffffff;
+}
+.dialogsItems .active{
+    color:gold;
+}
+.dialogsItems img{
+    border-radius: 100px;
+    width: 30px;
+}
+.messages {
+    padding: 10px;
+}
+
+.messages .message {
+    color: #858584;
+}
+.b{
+    width: 50px;
+}
+.inputMar{
+    margin-left: 10px;
+}
