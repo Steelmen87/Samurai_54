@@ -61,7 +61,7 @@ export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId})
 export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users})
 export const setCurrentPageAC = (currentPage:number) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setUsersTotalCountAC = (totalUsersCount:number) => ({type: SET_TOTAL_USERS_COUNT, count:totalUsersCount})
-
+//-----------------------------------------------------------
 /*type setUsersACTYPE = typeof setUsersAC
 type unfollowACACTYPE = typeof unfollowAC
 type followACTYPE = typeof followAC
