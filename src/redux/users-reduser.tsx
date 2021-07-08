@@ -2,6 +2,7 @@ const FOLLOW = 'FOLLOW-POST';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 
 export type UserType = {
     id: number,
@@ -13,8 +14,8 @@ export type UserType = {
 
 let initialState = {
     users: [] as Array<UserType>,
-    pageSize: 3,
-    totalUsersCount: 19,
+    pageSize: 40,
+    totalUsersCount: 0,
     currentPage: 1,
 }
 
@@ -48,6 +49,9 @@ const usersReducer = (state = initialState, action: any): InitialState => {
         case SET_CURRENT_PAGE: {
             return {...state,currentPage: action.currentPage}
         }
+        case SET_TOTAL_USERS_COUNT: {
+            return {...state,totalUsersCount: action.count}
+        }
         default :
             return state;
     }
@@ -56,6 +60,7 @@ export const followAC = (userId: number) => ({type: FOLLOW, userId})
 export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId})
 export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users})
 export const setCurrentPageAC = (currentPage:number) => ({type: SET_CURRENT_PAGE, currentPage})
+export const setUsersTotalCountAC = (totalUsersCount:number) => ({type: SET_TOTAL_USERS_COUNT, count:totalUsersCount})
 
 /*type setUsersACTYPE = typeof setUsersAC
 type unfollowACACTYPE = typeof unfollowAC
