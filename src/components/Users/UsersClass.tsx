@@ -9,31 +9,55 @@ type UserType = {
     name: string,
     status: string,
     photos: { small: string, large: string },
-    followed:boolean
+    followed: boolean
 }
 
 type PropsType = {
     users: Array<UserType>
+    setCurrentPage: (p: number) => void
     setUsers: (res: string) => void
     unfollow: (id: number) => void
     follow: (id: number) => void
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 
 }
 
 class Users extends React.Component<PropsType> {
-    componentDidMount()  {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.setUsers(response.data.items)
-        });
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            });
+    }
+
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            });
     }
 
     render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        let pages: number[] = [];
+        for (let i: number = 1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
+
         return <div>
             <div>
-                <span>1</span>
-                <span className={styles.selectedPage}>2</span>
-                <span>3</span>
-                <span>4</span>
+                {pages.map(p => {
+                    return <span className={this.props.currentPage === p ? styles.selectedPage : ""}
+                                 onClick={(e) => {
+                                     this.onPageChanged(p)
+                                 }}>{p}</span>
+                })}
+
 
             </div>
             {
