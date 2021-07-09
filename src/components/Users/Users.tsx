@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from "./users.module.css"
 import userPhoto from '../../assets/images/user.png'
+import {UsersPropsType} from "./UsersContainer";
 
 let Users = (props) => {
 
@@ -13,7 +14,7 @@ let Users = (props) => {
         <div>
             {pages.map(p => {
                 return <span className={props.currentPage === p ? styles.selectedPage : ""}
-                             onClick={(e) => {
+                             onClick={() => {
                                  props.onPageChanged(p)
                              }}>{p}_</span>
             })}

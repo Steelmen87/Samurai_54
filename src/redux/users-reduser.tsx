@@ -22,9 +22,9 @@ let initialState = {
 
 }
 
-type InitialState = typeof initialState
+export type InitialState = typeof initialState
 
-const usersReducer = (state = initialState, action: any): InitialState => {
+const usersReducer = (state:InitialState = initialState, action: any): InitialState => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -62,17 +62,14 @@ const usersReducer = (state = initialState, action: any): InitialState => {
             return state;
     }
 }
+
 export const followAC = (userId: number) => ({type: FOLLOW, userId})
 export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId})
 export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users})
 export const setCurrentPageAC = (currentPage:number) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setUsersTotalCountAC = (totalUsersCount:number) => ({type: SET_TOTAL_USERS_COUNT, count:totalUsersCount})
-export const setIsFetchingAC = (isFetching:number) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export const setIsFetchingAC = (isFetching:boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
 //-----------------------------------------------------------
-/*type setUsersACTYPE = typeof setUsersAC
-type unfollowACACTYPE = typeof unfollowAC
-type followACTYPE = typeof followAC
-type ACType = setUsersACTYPE|unfollowACACTYPE|followACTYPE*/
 
 
 export default usersReducer;
