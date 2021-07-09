@@ -19,22 +19,22 @@ let Users = (props) => {
             })}
 
 
-                </div>
-            {
-                props.users.map(u => <div key={u.id}>
+        </div>
+        {
+            props.users.map(u => <div key={u.id}>
                 <span>
                 <div>
                 <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}
-                alt=""/>
+                     alt=""/>
                 </div>
                 <div>
             {u.followed
                 ? <button onClick={() => {
-                props.unfollow(u.id)
-            }}>Unfollow</button>
+                    props.unfollow(u.id)
+                }}>Unfollow</button>
                 : <button onClick={() => {
-                props.follow(u.id)
-            }}>Follow</button>}
+                    props.follow(u.id)
+                }}>Follow</button>}
                 </div>
                 </span>
                 <span>
@@ -48,8 +48,8 @@ let Users = (props) => {
 
                 </span>
                 </span>
-                </div>)
-            }
-                </div>
-            }
-            export default Users;
+            </div>)
+        }
+    </div>
+}
+export default Users;
