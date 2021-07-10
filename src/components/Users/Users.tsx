@@ -2,6 +2,7 @@ import React from 'react'
 import styles from "./users.module.css"
 import userPhoto from '../../assets/images/user.png'
 import {UsersPropsType} from "./UsersContainer";
+import {NavLink} from 'react-router-dom';
 
 let Users = (props) => {
 
@@ -25,30 +26,32 @@ let Users = (props) => {
             props.users.map(u => <div key={u.id}>
                 <span>
                 <div>
+                    <NavLink to={'/profile/' + u.id}>
                 <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}
                      alt=""/>
-                </div>
-                <div>
-            {u.followed
-                ? <button onClick={() => {
-                    props.unfollow(u.id)
-                }}>Unfollow</button>
-                : <button onClick={() => {
-                    props.follow(u.id)
-                }}>Follow</button>}
-                </div>
-                </span>
+                     </NavLink>
+            </div>
+            <div>
+        {u.followed
+            ? <button onClick={() => {
+                props.unfollow(u.id)
+            }}>Unfollow</button>
+            : <button onClick={() => {
+                props.follow(u.id)
+            }}>Follow</button>}
+            </div>
+            </span>
                 <span>
-                <span>
-                <div>{u.name}</div>
-                <div>{u.status}</div>
-                </span>
-                <span>
-                <div>{"u.location.country"}</div>
-                <div>{"u.location.city"}</div>
+            <span>
+            <div>{u.name}</div>
+            <div>{u.status}</div>
+            </span>
+            <span>
+            <div>{"u.location.country"}</div>
+            <div>{"u.location.city"}</div>
 
-                </span>
-                </span>
+            </span>
+            </span>
             </div>)
         }
     </div>
