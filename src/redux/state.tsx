@@ -2,18 +2,18 @@ import profileReducer from "./profile-reduser";
 import dialogsReducer from "./dialogs-reduser";
 import friendsReducer from "./friends-reduser";
 
-const ADD_POST = 'ADD-POST';
+/*const ADD_POST = 'ADD-POST';
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT';
-
+const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT';*/
+/*
 export type StoreType = {
     _state: RootStateType
     _rerenderEntireTree: (state: RootStateType) => void
     subscribe: (s: any) => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
-}
+}*/
 export type AddPostActionType = {
     type:'ADD-POST'
 }
@@ -31,7 +31,7 @@ export type UpDateMessageActionType = {
 export type ActionsTypes = AddPostActionType|UpDateNewPostActionType|AddMessageActionType|UpDateMessageActionType
 
 
-let store: StoreType = {
+/*let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -41,6 +41,7 @@ let store: StoreType = {
 
             ],
             newPostText: 'It-Camasutra.com',
+            profile:null,
         },
         dialogPage: {
             dialogs: [
@@ -95,11 +96,7 @@ let store: StoreType = {
         }
 
 
-}
-
-
-
-
+}*/
 
 export type MessageType = {
     id: number
@@ -118,6 +115,7 @@ export type PostsType = {
 export type ProfilePage = {
     posts: Array<PostsType>
     newPostText: string
+    profile:null
 }
 export type DialogPageType = {
     dialogs: Array<DialogType>
@@ -135,4 +133,4 @@ export type RootStateType = {
 }
 
 
-export default store;
+/*export default store;*/

@@ -2,6 +2,7 @@ import {ActionsTypes, AddPostActionType, PostsType, ProfilePage, UpDateNewPostAc
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 let initialState: ProfilePage = {
     posts: [
@@ -11,9 +12,10 @@ let initialState: ProfilePage = {
 
     ],
     newPostText: 'It-Camasutra.com',
+    profile:null
 }
 
-const profileReducer = (state = initialState, action: ActionsTypes) => {
+const profileReducer = (state = initialState, action: ActionsTypes|setUserProfileType) => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostsType = {
@@ -23,21 +25,54 @@ const profileReducer = (state = initialState, action: ActionsTypes) => {
             };
             return {
                 ...state,
-                posts: [...state.posts,newPost],
-                newPostText:'',
+                posts: [...state.posts, newPost],
+                newPostText: '',
             }
         }
         case UPDATE_NEW_POST_TEXT: {
             return {
                 ...state,
-                newPostText:action.newText,
+                newPostText: action.newText,
             }
         }
+        case SET_USER_PROFILE: {
+                return {
+                    ...state,
+                    profile: action.profile
+                }
+            }
+
         default :
             return state
     }
 }
 export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST})
+//Нужно Типизировать
+export type setUserProfileType = {
+    type: 'SET_USER_PROFILE'
+    profile:{
+        aboutMe: string
+        contacts: {
+            facebook: string
+            website: null|string
+            vk: string
+            twitter: string
+            instagram: string
+            youtube: null|string
+            github: string
+            mainLink: null|string
+        },
+        lookingForAJob: boolean
+        lookingForAJobDescription: string
+        fullName: string
+        userId: number
+        photos: {
+            small: string
+            large: string
+        }
+    }
+}
+export const setUserProfile = (profile):setUserProfileType => ({type: SET_USER_PROFILE, profile})
 
 export const updateNewPostTextActionCreator = (text: string): UpDateNewPostActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
