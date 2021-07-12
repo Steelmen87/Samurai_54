@@ -39,8 +39,30 @@ class ProfileContainer extends React.Component<PropsType> {
         )
     }
 }
-
-let mapStateToProps = (state) => ({
+export type ProfileType = {
+    profile:{
+        aboutMe: string
+        contacts: {
+            facebook: string
+            website: null|string
+            vk: string
+            twitter: string
+            instagram: string
+            youtube: null|string
+            github: string
+            mainLink: null|string
+        },
+        lookingForAJob: boolean
+        lookingForAJobDescription: string
+        fullName: string
+        userId: number
+        photos: {
+            small: string
+            large: string
+        }
+    }
+}
+let mapStateToProps = (state):ProfileType => ({
     profile: state.profilePage.profile
 });
 
