@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {setAuthUserData} from "../../redux/auth-reduser";
 import {usersAPI} from "../../api/api";
@@ -14,11 +13,9 @@ class HeaderContainer extends React.Component<any, any> {
                     this.props.setAuthUserData(id, email, login);
                 }
             });
-
     }
 
     render() {
-
         //@ts-ignore
         return <Header {...this.props}/>
     }

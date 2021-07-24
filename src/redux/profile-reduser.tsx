@@ -1,4 +1,5 @@
 import {ActionsTypes, AddPostActionType, PostsType, ProfilePage, UpDateNewPostActionType} from "./state";
+import { usersAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -12,10 +13,10 @@ let initialState: ProfilePage = {
 
     ],
     newPostText: 'It-Camasutra.com',
-    profile:null
+    profile: null
 }
 
-const profileReducer = (state = initialState, action: ActionsTypes|setUserProfileType) => {
+const profileReducer = (state = initialState, action: ActionsTypes | setUserProfileType) => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostsType = {
@@ -36,11 +37,11 @@ const profileReducer = (state = initialState, action: ActionsTypes|setUserProfil
             }
         }
         case SET_USER_PROFILE: {
-                return {
-                    ...state,
-                    profile: action.profile
-                }
+            return {
+                ...state,
+                profile: action.profile
             }
+        }
 
         default :
             return state
@@ -50,17 +51,17 @@ export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST})
 //Нужно Типизировать
 export type setUserProfileType = {
     type: 'SET_USER_PROFILE'
-    profile:{
+    profile: {
         aboutMe: string
         contacts: {
             facebook: string
-            website: null|string
+            website: null | string
             vk: string
             twitter: string
             instagram: string
-            youtube: null|string
+            youtube: null | string
             github: string
-            mainLink: null|string
+            mainLink: null | string
         },
         lookingForAJob: boolean
         lookingForAJobDescription: string
@@ -72,8 +73,20 @@ export type setUserProfileType = {
         }
     }
 }
-export const setUserProfile = (profile):setUserProfileType => ({type: SET_USER_PROFILE, profile})
+export const setUserProfile = (profile): setUserProfileType => ({type: SET_USER_PROFILE, profile})
 
 export const updateNewPostTextActionCreator = (text: string): UpDateNewPostActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
+
+export const getFollow = (userId) => {
+    return (dispatch) => {
+        usersAPI.getFollow(userId)
+            .then(data => {
+                dispatch(setUserProfile(data));
+            });
+    }
+}
+
+
 export default profileReducer;

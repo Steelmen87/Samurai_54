@@ -1,10 +1,9 @@
 import React from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/profile-reduser";
+import {getFollow, setUserProfile} from "../../redux/profile-reduser";
 import {RouteComponentProps, withRouter} from "react-router";
-import {getFollow} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 type pathParamsType = {
     userId: string
@@ -14,6 +13,7 @@ type mapStateToPropsType = {
 }
 type mapDispatchPropsType = {
     setUserProfile: (profile: any) => void
+    getFollow: (userId:string) => void
 }
 type OwnPropsType = mapStateToPropsType & mapDispatchPropsType
 
@@ -26,10 +26,11 @@ class ProfileContainer extends React.Component<PropsType> {
         if (!userId) {
             userId = '2';
         }
-        getFollow(userId)
+       this.props.getFollow(userId)
+        /*usersAPI.getFollow(userId)
             .then(data => {
                 this.props.setUserProfile(data)
-            });
+            });*/
         /*axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
                 this.props.setUserProfile(response.data)
@@ -44,18 +45,19 @@ class ProfileContainer extends React.Component<PropsType> {
         )
     }
 }
+
 export type ProfileType = {
-    profile:{
+    profile: {
         aboutMe: string
         contacts: {
             facebook: string
-            website: null|string
+            website: null | string
             vk: string
             twitter: string
             instagram: string
-            youtube: null|string
+            youtube: null | string
             github: string
-            mainLink: null|string
+            mainLink: null | string
         },
         lookingForAJob: boolean
         lookingForAJobDescription: string
@@ -67,10 +69,10 @@ export type ProfileType = {
         }
     }
 }
-let mapStateToProps = (state):ProfileType => ({
+let mapStateToProps = (state): ProfileType => ({
     profile: state.profilePage.profile
 });
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {setUserProfile, getFollow})(WithUrlDataContainerComponent);

@@ -1,4 +1,4 @@
-import { usersAPI } from "../api/api";
+import {usersAPI} from "../api/api";
 
 const FOLLOW = 'FOLLOW-POST';
 const UNFOLLOW = 'UNFOLLOW';
@@ -89,10 +89,10 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
     userId
 })
 //-----------------------------------------------------------
-export const getUsersThunkCreator = (currentPage,pageSize) => {
+export const getUsersThunkCreator = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(setIsFetchingAC(true));
-        usersAPI.getUsers(currentPage,pageSize)
+        usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(setIsFetchingAC(false));
                 dispatch(setUsersAC(data.items));

@@ -2,8 +2,6 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {addAnswerActionCreator, updateOnMessageChangeActionCreator} from "../../redux/dialogs-reduser";
-
 
 const Dialogs = (props) => {
     let state = props.dialogPage
@@ -13,7 +11,7 @@ const Dialogs = (props) => {
     let messageElement = state.messages.map(m => <Message message={m.message}/>);
 
     let onSendMessageClick = () => {
-        if(props.newMessageText === ""){
+        if (props.newMessageText === "") {
             return;
         }
         props.onSendMessageClick();
