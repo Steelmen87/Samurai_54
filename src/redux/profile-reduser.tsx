@@ -79,9 +79,9 @@ export const updateNewPostTextActionCreator = (text: string): UpDateNewPostActio
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
 
 
-export const getFollow = (userId) => {
+export const getUsersProFile = (userId) => {
     return (dispatch) => {
-        usersAPI.getFollow(userId)
+        usersAPI.getProfile(userId)
             .then(data => {
                 dispatch(setUserProfile(data));
             });

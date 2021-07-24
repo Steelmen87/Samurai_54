@@ -1,9 +1,8 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getFollow, setUserProfile} from "../../redux/profile-reduser";
+import {getUsersProFile} from "../../redux/profile-reduser";
 import {RouteComponentProps, withRouter} from "react-router";
-import {usersAPI} from "../../api/api";
 
 type pathParamsType = {
     userId: string
@@ -12,8 +11,7 @@ type mapStateToPropsType = {
     profile: any
 }
 type mapDispatchPropsType = {
-    setUserProfile: (profile: any) => void
-    getFollow: (userId:string) => void
+    getUsersProFile: (userId: string) => void
 }
 type OwnPropsType = mapStateToPropsType & mapDispatchPropsType
 
@@ -26,7 +24,7 @@ class ProfileContainer extends React.Component<PropsType> {
         if (!userId) {
             userId = '2';
         }
-       this.props.getFollow(userId)
+        this.props.getUsersProFile(userId)
         /*usersAPI.getFollow(userId)
             .then(data => {
                 this.props.setUserProfile(data)
@@ -75,4 +73,4 @@ let mapStateToProps = (state): ProfileType => ({
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {setUserProfile, getFollow})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {getUsersProFile})(WithUrlDataContainerComponent);
