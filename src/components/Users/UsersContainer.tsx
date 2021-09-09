@@ -14,7 +14,7 @@ import React from "react";
 import Users from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
-
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type UserType = {
     id: number,
@@ -39,7 +39,7 @@ type PropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: []
-    getUsers:any
+    getUsers: any
 
 
 }
@@ -49,25 +49,12 @@ type PropsType = {
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
-        /*this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            });*/
+
     }
 
-    onPageChanged = (pageNumber:number) => {
+    onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
-        /*this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true);
 
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items)
-            });*/
     }
 
     render() {
@@ -88,10 +75,9 @@ class UsersContainer extends React.Component<PropsType> {
             />
         </>
     }
-
-
 }
 
+let AuthRedirectComponent = withAuthRedirect(UsersContainer)
 
 let mapStateToProps = (state: AppStateType) => {
     return {
@@ -112,6 +98,6 @@ export default connect(mapStateToProps, {
     setTotalUsersCount: setUsersTotalCountAC,
     toggleIsFetching: setIsFetchingAC,
     toggleFollowingProgress: toggleFollowingProgress,
-    getUsers:getUsersThunkCreator
+    getUsers: getUsersThunkCreator
     // @ts-ignore
-})(UsersContainer);
+})(AuthRedirectComponent);
