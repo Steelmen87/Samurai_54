@@ -1,11 +1,6 @@
 import {connect} from "react-redux";
 import {
-    followACSuccess,
     setCurrentPageAC,
-    //setUsersAC,
-    //setUsersTotalCountAC,
-    unfollowACSuccess,
-    //setIsFetchingAC,
     toggleFollowingProgress,
     getUsersThunkCreator,
     follow, unfollow, setUsersTotalCountAC, setUsersAC, setIsFetchingAC
@@ -15,6 +10,7 @@ import Users from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type UserType = {
     id: number,
@@ -77,8 +73,6 @@ class UsersContainer extends React.Component<PropsType> {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(UsersContainer)
-
 let mapStateToProps = (state: AppStateType) => {
     return {
         users: state.usersPage.users,
@@ -90,7 +84,9 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {
     follow: follow,
     unfollow: unfollow,
     setUsers: setUsersAC,
@@ -100,4 +96,4 @@ export default connect(mapStateToProps, {
     toggleFollowingProgress: toggleFollowingProgress,
     getUsers: getUsersThunkCreator
     // @ts-ignore
-})(AuthRedirectComponent);
+}))(UsersContainer);
