@@ -1,7 +1,7 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
 import {Preloader} from "../../../common/preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
+import ProfileStatus from "./ProfileStatus";
 
 
 const ProfileInfo = (props) => {
@@ -16,9 +16,10 @@ const ProfileInfo = (props) => {
                      alt=''/>
             </div>*/}
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
-                {/*<div>{props.profile.lookingForAJobDescription}</div>*/}
-                <ProfileStatus status={'Yo man.'}/>
+                <img src={props.profile.photos.large} alt=''/>
+
+                <ProfileStatus status={props.status}
+                               updateStatus={props.updateStatus}/>
             </div>
         </div>
     )

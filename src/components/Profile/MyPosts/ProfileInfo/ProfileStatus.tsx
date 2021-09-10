@@ -1,13 +1,71 @@
-import React, {useState} from "react";
+import React, {ChangeEvent} from 'react';
 
-export const ProfileStatus = (props) => {
-    const [editMode, setEditMode] = useState(false)
-    const ChangeEditMode = () => {
-        setEditMode(!editMode)
-    }
-    return <>
-        {!editMode ? <div><span onDoubleClick={ChangeEditMode}>{props.status}</span></div>
-            : <div><input value={props.status} onBlur={ChangeEditMode} autoFocus/></div>}
-    </>
+
+type PropsType = {
+    status: string
+    updateStatus: (newStatus: string) => void
 }
-//Yooooo 72(((
+type StateType = {
+    editMode: boolean
+    status: string
+}
+
+class ProfileStatus extends React.Component<PropsType, StateType> {
+    state = {
+        editMode: false,
+        status: this.props.status
+    }
+
+    activateEditMode = () => {
+        this.setState({
+            editMode: true
+        });
+    }
+
+    deactivateEditMode() {
+        this.setState({
+            editMode: false
+        });
+        this.props.updateStatus(this.state.status);
+    }
+
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            status: e.currentTarget.value
+        });
+    }
+
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            });
+        }
+    }
+
+    render() {
+
+        return (
+            <div>
+                {!this.state.editMode &&
+                <div>
+                    <span onDoubleClick={this.activateEditMode}>
+                        {this.props.status || "-------"}
+                    </span>
+                </div>
+                }
+                {this.state.editMode &&
+                <div>
+                    <input onChange={this.onStatusChange}
+                           autoFocus={true}
+                           onBlur={this.deactivateEditMode.bind(this)}
+                           value={this.state.status}/>
+                </div>
+                }
+            </div>
+        )
+    }
+}
+
+export default ProfileStatus;
