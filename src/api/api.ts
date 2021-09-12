@@ -48,6 +48,10 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
             .then(data => data.data);
+    },
+    login(email: string, password: string, rememberMe = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
+
     }
 }
 
