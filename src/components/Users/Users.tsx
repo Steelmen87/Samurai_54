@@ -12,12 +12,13 @@ let Users = (props) => {
     }
 
     return <div>
+        <span>Total Users Count {props.totalUsersCount}</span>
         <div>
             {pages.map(p => {
                 return <span className={props.currentPage === p ? styles.selectedPage : ""}
                              onClick={() => {
                                  props.onPageChanged(p)
-                             }}>{p}_</span>
+                             }}>{p}*</span>
             })}
         </div>
         {
