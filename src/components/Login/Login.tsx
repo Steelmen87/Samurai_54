@@ -1,9 +1,11 @@
 import React from "react";
 import {Field, reduxForm, InjectedFormProps} from 'redux-form'
 import {authAPI} from "../../api/api";
+import {Input} from "../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
 
 const Login = () => {
-    let onSubmit = (formData:FormDataType) => {
+    let onSubmit = (formData: FormDataType) => {
         authAPI.login(formData.login, formData.password, formData.rememberMe)
     }
     return <div>
@@ -13,18 +15,19 @@ const Login = () => {
 }
 
 type FormDataType = {
-    login:string
-    password:string
-    rememberMe:boolean
+    login: string
+    password: string
+    rememberMe: boolean
 }
-
+const length = maxLengthCreator(20)
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     const {handleSubmit} = props;
+
     return (
         <form onSubmit={handleSubmit}>
-            <div><Field name="login" component={"input"} placeholder={"Login"}/></div>
-            <div><Field name="password" component={"input"} placeholder={"Password"}/></div>
-            <div><Field name="rememberMe" component={"input"} type={"checkbox"}/>remember me</div>
+            <div><Field name="login" component={Input} validate={[required, length]} placeholder={"Login"}/></div>
+            <div><Field name="password" component={Input} validate={[required, length]} placeholder={"Password"}/></div>
+            <div><Field name="rememberMe" component={Input} type={"checkbox"}/>remember me</div>
             <button>Login</button>
         </form>
     )
