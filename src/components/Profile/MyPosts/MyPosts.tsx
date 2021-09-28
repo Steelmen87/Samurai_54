@@ -2,6 +2,8 @@ import React, {RefObject} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {Field, reduxForm, InjectedFormProps} from 'redux-form'
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import { Textarea } from "../../common/FormsControls/FormsControls";
 
 const MyPosts = (props) => {
     let postsElement = props.posts.map(p => <Post likesCount={p.likesCount} message={p.message}/>);
@@ -24,10 +26,10 @@ const MyPosts = (props) => {
         </div>
     );
 }
-
+const length10 = maxLengthCreator(10)
 const AddMyPostForm = (props) => {
     return (<form onSubmit={props.handleSubmit}>
-        <Field name="newPostText" component={"textarea"}/>
+        <Field name="newPostText" component={Textarea} validate={[required,length10]} placeholder={"Post Message"}/>
         {/*<textarea
             value={props.newPostText}
             onChange={onPostChange}
