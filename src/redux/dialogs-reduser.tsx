@@ -27,7 +27,7 @@ let initialState: DialogPageType = {
         {id: 4, message: "Yo"},
         {id: 5, message: "Yo"},
     ],
-    newMessageText: "",
+
 }
 
 const dialogsReducer = (state = initialState, action: ActionsTypes) => {
@@ -36,25 +36,18 @@ const dialogsReducer = (state = initialState, action: ActionsTypes) => {
         case ADD_MESSAGE: {
             let newMessage: MessageType = {
                 id: 6,
-                message: state.newMessageText,
+                message: action.newMessageText,
             };
             return {
                 ...state,
-                newMessageText: '',
                 messages: [...state.messages, newMessage]
             }
         }
-        case UPDATE_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newTextMessage,
-            }
         default :
             return state
     }
 }
-export const addAnswerActionCreator = (): AddMessageActionType => ({type: ADD_MESSAGE})
+export const addAnswerActionCreator = (newMessageText: string): AddMessageActionType =>
+    ({type: ADD_MESSAGE, newMessageText})
 
-export const updateOnMessageChangeActionCreator = (text: string): UpDateMessageActionType =>
-    ({type: UPDATE_MESSAGE_TEXT, newTextMessage: text})
 export default dialogsReducer

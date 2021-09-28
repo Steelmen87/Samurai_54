@@ -1,8 +1,8 @@
-import {ActionsTypes, AddPostActionType, UpDateNewPostActionType} from "./state";
+import {ActionsTypes, AddPostActionType} from "./state";
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 export type PostType = {
@@ -40,7 +40,7 @@ let initialState = {
     ] as Array<PostType>,
     profile: null as ProfileType | null,
     status: '',
-    newPostText: ''
+
 };
 export type InitialStateType = typeof initialState;
 
@@ -52,19 +52,12 @@ const profileReducer = (state: InitialStateType = initialState,
         case ADD_POST: {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             };
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: '',
-            }
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText,
             }
         }
         case SET_USER_PROFILE: {
@@ -78,7 +71,7 @@ const profileReducer = (state: InitialStateType = initialState,
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST})
+export const addPostActionCreator = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText})
 
 /*export type setUserProfileType = {
     type: 'SET_USER_PROFILE'
@@ -116,8 +109,8 @@ export type setStatusType = {
 export const setStatus = (status: string): setStatusType =>
     ({type: SET_STATUS, status: status})
 
-export const updateNewPostTextActionCreator = (text: string): UpDateNewPostActionType =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+/*export const updateNewPostTextActionCreator = (text: string): UpDateNewPostActionType =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: text})*/
 
 
 export const getUsersProFile = (userId: number) => async (dispatch: any) => {

@@ -15,7 +15,8 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }*/
 export type AddPostActionType = {
-    type:'ADD-POST'
+    type:'ADD-POST',
+    newPostText:string
 }
 export type UpDateNewPostActionType = {
     type:'UPDATE-NEW-POST-TEXT'
@@ -23,6 +24,7 @@ export type UpDateNewPostActionType = {
 }
 export type AddMessageActionType = {
     type:'ADD-MESSAGE'
+    newMessageText:string
 }
 export type UpDateMessageActionType = {
     type:'UPDATE-MESSAGE-TEXT'
@@ -120,7 +122,7 @@ export type ProfilePage = {
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageText: string
+
 
 }
 export type FriendsDialogs = {
