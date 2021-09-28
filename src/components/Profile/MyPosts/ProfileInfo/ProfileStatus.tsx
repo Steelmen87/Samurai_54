@@ -69,3 +69,4 @@ class ProfileStatus extends React.Component<PropsType, StateType> {
 }
 
 export default ProfileStatus;
+//TODO Form for status
