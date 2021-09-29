@@ -6,6 +6,7 @@ import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reduser";
 import {Redirect} from "react-router-dom";
+import style from './../common/FormsControls/FormsControls.module.css'
 
 const Login = (props) => {
     let onSubmit = (formData: FormDataType) => {
@@ -37,6 +38,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div><Field name="password" component={Input} validate={[required, length]} type={"password"}
                         placeholder={"Password"}/></div>
             <div><Field name="rememberMe" component={Input} type={"checkbox"}/>remember me</div>
+            {props.error && <div className={style.formSummaryError}>
+                {props.error}
+            </div>}
             <button>Login</button>
         </form>
     )
