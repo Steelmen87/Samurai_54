@@ -1,10 +1,27 @@
-import {ActionsTypes, AddPostActionType} from "./state";
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+
+export type AddPostActionType = {
+    type:'ADD-POST',
+    newPostText:string
+}
+export type UpDateNewPostActionType = {
+    type:'UPDATE-NEW-POST-TEXT'
+    newText:string
+}
+export type AddMessageActionType = {
+    type:'ADD-MESSAGE'
+    newMessageText:string
+}
+export type UpDateMessageActionType = {
+    type:'UPDATE-MESSAGE-TEXT'
+    newTextMessage:string
+}
+export type ActionsTypes = AddPostActionType|UpDateNewPostActionType|AddMessageActionType|UpDateMessageActionType
+export type TYPESALLACTION = ActionsTypes| SetUserProfileActionType| setStatusType
 export type PostType = {
     id: number
     message: string
@@ -44,10 +61,8 @@ let initialState = {
 };
 export type InitialStateType = typeof initialState;
 
-const profileReducer = (state: InitialStateType = initialState,
-                        action: ActionsTypes
-                            | SetUserProfileActionType
-                            | setStatusType): InitialStateType => {
+const profileReducer = (state: InitialStateType = initialState,action: TYPESALLACTION): InitialStateType =>
+{
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
@@ -73,30 +88,6 @@ const profileReducer = (state: InitialStateType = initialState,
 
 export const addPostActionCreator = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText})
 
-/*export type setUserProfileType = {
-    type: 'SET_USER_PROFILE'
-    profile: {
-        aboutMe: string
-        contacts: {
-            facebook: string
-            website: null | string
-            vk: string
-            twitter: string
-            instagram: string
-            youtube: null | string
-            github: string
-            mainLink: null | string
-        },
-        lookingForAJob: boolean
-        lookingForAJobDescription: string
-        fullName: string
-        userId: number
-        photos: {
-            small: string
-            large: string
-        }
-    }
-}*/
 type SetUserProfileActionType = {
     type: typeof SET_USER_PROFILE
     profile: ProfileType
@@ -108,10 +99,6 @@ export type setStatusType = {
 }
 export const setStatus = (status: string): setStatusType =>
     ({type: SET_STATUS, status: status})
-
-/*export const updateNewPostTextActionCreator = (text: string): UpDateNewPostActionType =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})*/
-
 
 export const getUsersProFile = (userId: number) => async (dispatch: any) => {
     const response = await usersAPI.getProfile(userId);
@@ -133,14 +120,6 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
         //
     }
 }
-/*export const updateStatus = (status) => (dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if ( response.data.resultCode === 0) {
-                dispatch(setStatus(status));
-            }
-        });
-}*/
 
 
 export default profileReducer;

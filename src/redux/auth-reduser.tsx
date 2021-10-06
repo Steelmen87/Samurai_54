@@ -1,36 +1,39 @@
-import {authAPI, usersAPI} from "../api/api";
+import {authAPI} from "../api/api";
 import {stopSubmit} from 'redux-form';
+import {Dispatch} from "redux";
+
 const SET_USER_DATA = 'SET_USER_DATA';
 
 
 let initialState = {
-    id: null,
-    email: null,
-    login: null,
-    isAuth: false
-    /* isFetching: false,*/
+    id: null as string | null,
+    email: null as string | null,
+    login: null as string | null,
+    isAuth: false,
+    captchaUrl:null as string | null
 
 }
 
-export type InitialState = typeof initialState
+export type InitialStateType = typeof initialState
 
-const authReducer = (state: InitialState = initialState, action: any): InitialState => {
+const authReducer = (state= initialState, action: setAuthUserDataType): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
                 ...state,
                 ...action.payload,
-
             }
         default :
             return state;
     }
 }
+export type setAuthUserDataType = ReturnType<typeof setAuthUserData>
 
-export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+export const setAuthUserData = (id, email, login, isAuth) => ({
     type: SET_USER_DATA,
     payload: {id, login, email, isAuth}
-})
+} as const)
+
 export const getAuthUserData = () => {
     return (dispatch) => {
         authAPI.me()
@@ -49,12 +52,11 @@ export const login = (email, password, rememberMe) => (dispatch) => {
                 dispatch(getAuthUserData())
             } else {
                 let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
-                dispatch(stopSubmit("login",{_error:message}));
-
+                dispatch(stopSubmit("login", {_error: message}));
             }
         })
 };
-export const logout = () => (dispatch) => {
+export const logout = () => (dispatch: Dispatch) => {
     authAPI.logout()
         .then(response => {
             if (response.data.resultCode === 0) {
