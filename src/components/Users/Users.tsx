@@ -13,7 +13,7 @@ type PropsType = {
     unfollow: (id: number) => void
     followingInProgress: Array<number>
     follow: (id: number) => void
-    toggleFollowingProgress: (isFetching: boolean) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
 let Users: React.FC<PropsType> = (props) => {

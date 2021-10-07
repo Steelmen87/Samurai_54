@@ -1,14 +1,16 @@
 import React from "react";
 import {Field, reduxForm, InjectedFormProps} from 'redux-form'
-import {authAPI} from "../../api/api";
 import {Input} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reduser";
 import {Redirect} from "react-router-dom";
 import style from './../common/FormsControls/FormsControls.module.css'
+import {AppStateType} from "../../redux/redux-store";
 
-const Login = (props) => {
+type PropsType = mapStateToPropsType &mapDispatchToPropsType
+
+const Login:React.FC<PropsType> = (props) => {
     let onSubmit = (formData: FormDataType) => {
         props.login(formData.login, formData.password, formData.rememberMe)
     }
@@ -49,8 +51,15 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
 })(LoginForm)
-
-const mapStateToProps = (state) => ({
+type mapStateToPropsType = {
+    isAuth:boolean
+}
+type mapDispatchToPropsType = {
+    login:(email:string,
+    password:string,
+    rememberMe:boolean)=>void
+}
+const mapStateToProps = (state:AppStateType):mapStateToPropsType => ({
     isAuth: state.auth.isAuth
 })
 

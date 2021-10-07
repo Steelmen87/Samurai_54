@@ -6,14 +6,10 @@ import {connect} from "react-redux";
 
 let mapStateToProps = (state) => {
     return {
-        friendDialog:state.friendPage.dialogs.map(fd =>
+        friendDialog: state.friendPage.dialogs.map(fd =>
             <FriendItem name={fd.name} id={fd.id}/>),
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
 
-    }
-}
-const FriendsContainer = connect(mapStateToProps,mapDispatchToProps)(Friends);
+const FriendsContainer = connect(mapStateToProps)(Friends);
 export default FriendsContainer;

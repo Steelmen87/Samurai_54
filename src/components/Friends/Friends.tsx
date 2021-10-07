@@ -1,7 +1,13 @@
 import React from "react";
 import s from './Friends.module.css'
 
-const Friends = (props) => {
+
+type FriendType = {
+    fd1:number
+    fd:number
+}
+
+const Friends:React.FC<FriendType> = (props) => {
     return (
         <div className={s.friends}>
             <div className={s.parent}>

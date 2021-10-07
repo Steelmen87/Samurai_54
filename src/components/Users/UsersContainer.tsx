@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import {
-    toggleFollowingProgress,
+
     getUsersThunkCreator,
-    follow, unfollow
+    follow, unfollow, toggleFollowingProgress
 } from "../../redux/users-reduser";
 import React from "react";
 import Users from "./Users";
@@ -24,9 +24,9 @@ type PropsType = {
     toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (isFetching: boolean) => void
     users: Array<UserType>
-    /*setCurrentPage: (p: number) => void*/
+    setCurrentPage: (p: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
-    /*setUsers: (res: string) => void*/
+    setUsers: (res: string) => void
     unfollow: (id: number) => void
     follow: (id: number) => void
     pageSize: number
@@ -34,11 +34,13 @@ type PropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: []
-    getUsers: (pageNumber: number, pageSize: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+
 
 }
+/*export type UsersPropsType = UserType & PropsType*/
 
-
+// @ts-ignore
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
@@ -86,6 +88,7 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         follow,
         unfollow,
-        toggleFollowingProgress,
+        toggleFollowingProgress: toggleFollowingProgress,
         getUsers: getUsersThunkCreator
+        // @ts-ignore
     }))(UsersContainer);

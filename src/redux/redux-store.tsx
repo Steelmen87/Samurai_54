@@ -16,6 +16,10 @@ let rootReducer = combineReducers({
     form: formReducer
 })
 
+export type ActionsTypes = {
+
+}
+type PropertiesType<T> = T extends {[key:string]:infer U} ? U : never
 export type AppStateType = ReturnType<typeof rootReducer>
 
 let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

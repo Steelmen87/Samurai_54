@@ -5,16 +5,18 @@ import Message from "./Message/Message";
 import {Field, reduxForm} from 'redux-form'
 import {Textarea} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {DialogType} from "../../redux/dialogs-reduser";
+import {DialogType, initialStateType, MessageType} from "../../redux/dialogs-reduser";
 
-type PropsType = {
-    dialogPage:string
-    onSendMessageClick:(text:string)=>void
-    dialogs:Array<DialogType>
-
+type DialogProps = {
+    onSendMessageClick: (newMessageText: string) => void
+    dialogPage: {
+        dialogs: Array<DialogType>
+        messages: Array<MessageType>
+    }
 }
 
-const Dialogs = (props ) => {
+
+const Dialogs: React.FC<DialogProps> = (props) => {
     let state = props.dialogPage
 
     let dialogsElement = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
