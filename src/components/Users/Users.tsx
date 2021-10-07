@@ -2,8 +2,21 @@ import React from 'react'
 import styles from "./users.module.css"
 import userPhoto from '../../assets/images/user.png'
 import {NavLink} from 'react-router-dom';
+import {UserType} from "../../redux/users-reduser";
 
-let Users = (props) => {
+type PropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (p: number) => void
+    users: Array<UserType>
+    unfollow: (id: number) => void
+    followingInProgress: Array<number>
+    follow: (id: number) => void
+    toggleFollowingProgress: (isFetching: boolean) => void
+}
+
+let Users: React.FC<PropsType> = (props) => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: number[] = [];

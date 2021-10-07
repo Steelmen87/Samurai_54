@@ -1,13 +1,20 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {Redirect} from "react-router-dom";
-import {Field, reduxForm, InjectedFormProps} from 'redux-form'
+import {Field, reduxForm} from 'redux-form'
 import {Textarea} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {DialogType} from "../../redux/dialogs-reduser";
 
-const Dialogs = (props) => {
+type PropsType = {
+    dialogPage:string
+    onSendMessageClick:(text:string)=>void
+    dialogs:Array<DialogType>
+
+}
+
+const Dialogs = (props ) => {
     let state = props.dialogPage
 
     let dialogsElement = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
@@ -18,11 +25,6 @@ const Dialogs = (props) => {
         props.onSendMessageClick(values.newMessageText);
 
     }
-    /* let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-         let body = e.target.value;
-         props.updateNewMessageBody(body);
-     }*/
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -41,10 +43,7 @@ const DialogsForm = (props) => {
             <Field
                 name="newMessageText"
                 component={Textarea}
-                validate={[required,length]}/>
-            {/* <textarea className={s.inputMar}
-                  value={props.newMessageText}
-                  onChange={onMessageChange}}*/}
+                validate={[required, length]}/>
             <button>add message</button>
         </form>
     )
