@@ -1,15 +1,14 @@
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {
-
     getUsersThunkCreator,
     follow, unfollow, toggleFollowingProgress
 } from "../../redux/users-reduser";
-import React from "react";
+import React, {useEffect} from "react";
 import Users from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {InitializeApp} from "../../redux/app-reduser";
 
 type UserType = {
     id: number,
@@ -84,7 +83,6 @@ let mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
     connect(mapStateToProps, {
         follow,
         unfollow,

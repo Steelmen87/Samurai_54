@@ -33,10 +33,10 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
     type: SET_USER_DATA,
     payload: {id, login, email, isAuth}
 } as const)
-
+export type getAuthUserData = ReturnType<typeof getAuthUserData>
 export const getAuthUserData = () => {
-    return (dispatch) => {
-        authAPI.me()
+    return (dispatch:Dispatch) => {
+        return authAPI.me()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data;

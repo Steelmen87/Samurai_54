@@ -6,10 +6,10 @@ import {compose} from "redux";
 
 
 class HeaderContainer extends React.Component<any> {
-    componentDidMount() {
+   /* componentDidMount() {
         this.props.getAuthUserData()
     }
-
+*/
     render() {
         //@ts-ignore
         return <Header {...this.props}/>
