@@ -9,6 +9,14 @@ import {Preloader} from "../common/preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
 import {compose} from "redux";
 import {InitializeApp} from "../../redux/app-reduser";
+import {
+    getPageSize,
+    getUsers,
+    getTotalUsersCount,
+    getCurrentPage,
+    getIsFetching,
+    getFollowingInProgress
+} from "../../redux/UserSelectors";
 
 type UserType = {
     id: number,
@@ -71,6 +79,7 @@ class UsersContainer extends React.Component<PropsType> {
     }
 }
 
+/*
 let mapStateToProps = (state: AppStateType) => {
     return {
         users: state.usersPage.users,
@@ -81,6 +90,18 @@ let mapStateToProps = (state: AppStateType) => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
+*/
+let mapStateToProps = (state: AppStateType) => {
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
+    }
+}
+
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {

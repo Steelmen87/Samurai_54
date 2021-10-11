@@ -122,6 +122,7 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>
 export const getUsersThunkCreator = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(setIsFetchingAC(true));
+        dispatch(setCurrentPageAC(currentPage))
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(setIsFetchingAC(false));
