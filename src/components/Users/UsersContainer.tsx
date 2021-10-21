@@ -1,14 +1,13 @@
 import {connect, useSelector} from "react-redux";
 import {
     getUsersThunkCreator,
-    follow, unfollow, toggleFollowingProgress
+    follow, unfollow, toggleFollowingProgress, setFilter
 } from "../../redux/users-reduser";
 import React, {useEffect} from "react";
 import Users from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
 import {compose} from "redux";
-import {InitializeApp} from "../../redux/app-reduser";
 import {
     getPageSize,
     getUsers,
@@ -28,6 +27,7 @@ type UserType = {
 }
 
 type PropsType = {
+    setFilter: (filter: string) => void
     toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (isFetching: boolean) => void
     users: Array<UserType>
@@ -49,6 +49,10 @@ type PropsType = {
 
 // @ts-ignore
 class UsersContainer extends React.Component<PropsType> {
+    state = {
+        search: '',
+    }
+
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
 
@@ -93,6 +97,7 @@ let mapStateToProps = (state: AppStateType) => {
 */
 let mapStateToProps = (state: AppStateType) => {
     return {
+        filter: state.usersPage.filter,
         users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
@@ -105,6 +110,7 @@ let mapStateToProps = (state: AppStateType) => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
+        setFilter,
         follow,
         unfollow,
         toggleFollowingProgress: toggleFollowingProgress,

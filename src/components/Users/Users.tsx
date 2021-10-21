@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useMemo, useState} from 'react'
 import styles from "./users.module.css"
 import userPhoto from '../../assets/images/user.png'
 import {NavLink} from 'react-router-dom';
-import {UserType} from "../../redux/users-reduser";
+import {setFilter, UserType} from "../../redux/users-reduser";
+import {useDispatch} from "react-redux";
+
 
 type PropsType = {
     totalUsersCount: number
@@ -17,15 +19,24 @@ type PropsType = {
 }
 
 let Users: React.FC<PropsType> = (props) => {
-
+    let dispatch = useDispatch()
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: number[] = [];
     for (let i: number = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
+    const [search, setSearch] = useState('')
+    const [filterTimeoutID, setfilterTimeoutID] = useState('')
+
+    const onSearchChange = (e) => {
+        setSearch(e.target.value)
+        dispatch(setFilter(search))
+    }
+
 
     return <div>
-        <span>Total Users Count {props.totalUsersCount}</span>
+        <input placeholder={"search"} value={search} onChange={onSearchChange}/>
+        <div><strong>Total Users Count: {props.totalUsersCount}</strong></div>
         <div>
             {pages.map(p => {
                 return <span className={props.currentPage === p ? styles.selectedPage : ""}
@@ -35,7 +46,9 @@ let Users: React.FC<PropsType> = (props) => {
             })}
         </div>
         {
-            props.users.map(u => <div key={u.id}>
+            props.users
+                .filter(u=>u.name.indexOf(search)>-1)
+                .map(u => <div key={u.id}>
                 <span>
                 <div>
                     <NavLink to={'/profile/' + u.id}>
