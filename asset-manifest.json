@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/Samurai_79/static/css/main.27d8006a.chunk.css",
+    "main.js": "/Samurai_79/static/js/main.4c1788ef.chunk.js",
+    "main.js.map": "/Samurai_79/static/js/main.4c1788ef.chunk.js.map",
+    "runtime~main.js": "/Samurai_79/static/js/runtime~main.bc1715b5.js",
+    "runtime~main.js.map": "/Samurai_79/static/js/runtime~main.bc1715b5.js.map",
+    "static/css/2.486ebae0.chunk.css": "/Samurai_79/static/css/2.486ebae0.chunk.css",
+    "static/js/2.df782efb.chunk.js": "/Samurai_79/static/js/2.df782efb.chunk.js",
+    "static/js/2.df782efb.chunk.js.map": "/Samurai_79/static/js/2.df782efb.chunk.js.map",
+    "index.html": "/Samurai_79/index.html",
+    "precache-manifest.09a27f10f247b52f51843bb39fd5ae88.js": "/Samurai_79/precache-manifest.09a27f10f247b52f51843bb39fd5ae88.js",
+    "service-worker.js": "/Samurai_79/service-worker.js",
+    "static/css/2.486ebae0.chunk.css.map": "/Samurai_79/static/css/2.486ebae0.chunk.css.map",
+    "static/css/main.27d8006a.chunk.css.map": "/Samurai_79/static/css/main.27d8006a.chunk.css.map",
+    "static/media/Hourglass.gif": "/Samurai_79/static/media/Hourglass.6921c9f6.gif",
+    "static/media/user.png": "/Samurai_79/static/media/user.8b1dbb1f.png"
+  }
+}
